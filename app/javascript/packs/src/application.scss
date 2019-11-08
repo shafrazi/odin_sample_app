@@ -12,3 +12,27 @@ body {
   width: 200px;
   height: 80px;
 }
+
+footer {
+  background-color: #212529;
+  color: white;
+  padding-top: 5px;
+
+  small {
+    float: left;
+  }
+
+  a {
+    color: white;
+  }
+
+  ul {
+    list-style: none;
+    float: right;
+
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
