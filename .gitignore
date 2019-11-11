@@ -37,6 +37,3 @@ yarn-debug.log*
 # Ignore Spring files
 /spring/*.pid
 
-# Ignore test dbs
-/db/*.sqlite3-0
-/db/*.sqlite3-1
