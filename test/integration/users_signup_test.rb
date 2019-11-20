@@ -32,6 +32,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     assert after_count == before_count + 1
     follow_redirect!
     assert_template "users/show"
+    assert is_logged_in?
     assert_select ".alert-success"
   end
 end
