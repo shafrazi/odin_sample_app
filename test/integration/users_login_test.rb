@@ -35,7 +35,20 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     delete logout_path
     follow_redirect!
     assert_not is_logged_in?
+    # simulate a user clicking logout in a second window
+    delete logout_path
+    follow_redirect!
     assert_template "static_pages/home"
     assert_select "a[href=?]", login_path
+  end
+
+  test "login with remembering" do
+    log_in_as(@user, remember_me: "1")
+    assert_not_nil cookies["remember_token"]
+  end
+
+  test "login without remembering" do
+    log_in_as(@user, remember_me: "0")
+    assert_nil cookies["remember_token"]
   end
 end
