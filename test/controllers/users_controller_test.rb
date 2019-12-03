@@ -5,6 +5,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @base_title = "Ruby on Rails Tutorial Sample App"
     @user = users(:michael)
     @other_user = users(:shafrazi)
+    @inactive_user = users(:umesha)
   end
 
   test "should get new" do
@@ -80,5 +81,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to login_path
     after_count = User.count
     assert after_count == before_count
+  end
+
+  test "should redirect to root path if accessed a show page of an inactive user" do
+    get user_path(@inactive_user)
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_template "static_pages/home"
   end
 end

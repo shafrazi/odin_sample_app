@@ -3,6 +3,7 @@ require "test_helper"
 class UsersLoginTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
+    @inactive_user = users(:umesha)
   end
 
   test "invalid login credentials display flash message" do
@@ -50,5 +51,14 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
   test "login without remembering" do
     log_in_as(@user, remember_me: "0")
     assert_nil cookies["remember_token"]
+  end
+
+  test "should not log in user when user is not activated" do
+    get login_path
+    post login_path, { params: { email: "umesha@example.com", password: "password" } }
+    assert_redirected_to root_path
+    follow_redirect!
+    assert_not is_logged_in?
+    assert_not flash.empty?
   end
 end

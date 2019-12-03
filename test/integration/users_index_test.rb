@@ -16,9 +16,11 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_template "users/index"
     assert_select "ul.pagination"
     User.paginate(page: 1).each do |user|
-      assert_select "a[href=?]", user_path(user), text: user.name
-      if user != @user
-        assert_select "a[href=?]", user_path(user), text: "Delete"
+      if user.activated?
+        assert_select "a[href=?]", user_path(user), text: user.name
+        if user != @user
+          assert_select "a[href=?]", user_path(user), text: "Delete"
+        end
       end
     end
   end
@@ -30,8 +32,10 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     assert_template "users/index"
     assert_select "ul.pagination"
     User.paginate(page: 1).each do |user|
-      assert_select "a[href=?]", user_path(user), text: user.name
-      assert_select "a[href=?]", user_path(user), text: "Delete", count: 0
+      if user.activated?
+        assert_select "a[href=?]", user_path(user), text: user.name
+        assert_select "a[href=?]", user_path(user), text: "Delete", count: 0
+      end
     end
   end
 end
