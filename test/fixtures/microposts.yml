@@ -3,27 +3,27 @@
 first_post:
   content: "I just ate an orange"
   created_at: <%= 10.minutes.ago %>
-  user_id: 1
+  user: michael
 
 second_post:
   content: "Check this out"
   created_at: <%= 3.years.ago %>
-  user_id: 2
+  user: shafrazi
 
 third_post:
   content: "Check this out"
   created_at: <%= 2.hours.ago %>
-  user_id: 2
+  user: umesha
 
 most_recent:
   content: "Look!"
   created_at: <%= Time.zone.now %>
-  user_id: 2
+  user: michael
 
 <% 30.times do |n| %>
-  micropost_<%= n %>:
-    content: <%= Faker::Lorem.sentence(word_count: 5) %>
-    created_at: <%= 42.days.ago %>
-    user: michael
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(word_count: 5) %>
+  created_at: <%= 42.days.ago %>
+  user: michael
 <% end %>
 
