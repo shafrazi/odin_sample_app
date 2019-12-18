@@ -9,6 +9,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get root_path
     assert_select ".pagination"
+    assert_select 'input[type=file]'
 
     # invalid submission
     assert_no_difference "Micropost.count" do
@@ -18,8 +19,9 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
     # valid submission
     content = "test micropost content"
+    picture = fixture_file_upload("test/fixtures/rails.png", "image/png")
     assert_difference "Micropost.count", 1 do
-      post microposts_path, params: { micropost: { content: content } }
+      post microposts_path, params: { micropost: { content: content, picture: picture} }
     end
     assert_redirected_to root_path
     follow_redirect!
