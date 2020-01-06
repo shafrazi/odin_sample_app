@@ -84,4 +84,35 @@ class UserTest < ActiveSupport::TestCase
     after_count = Micropost.count
     assert_equal after_count, before_count - 1
   end
+
+  test "should follow and unfollow users" do
+    michael = users(:michael)
+    archer = users(:archer)
+    assert_not michael.following?(archer)
+    michael.follow(archer)
+    assert michael.following?(archer)
+    assert archer.followers.include?(michael)
+    michael.unfollow(archer)
+    assert_not michael.following?(archer)
+  end
+
+  test "feed should have the right posts" do
+    michael = users(:michael)
+    archer = users(:archer)
+    shafrazi = users(:shafrazi)
+    # posts from followed user
+    shafrazi.microposts.each do |post|
+      assert michael.feed.include?(post)
+    end
+
+    # posts from self
+    michael.microposts.each do |post|
+      assert michael.feed.include?(post)
+    end
+
+    # posts from unfollowed user
+    archer.microposts.each do |post|
+      assert_not michael.feed.include?(post)
+    end
+  end
 end

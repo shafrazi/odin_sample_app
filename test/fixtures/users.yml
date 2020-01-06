@@ -30,6 +30,13 @@ umesha:
   activated: false
   activated_at: <%= Time.zone.now %>
 
+archer:
+  name: Archer Johnsson
+  email: archer@example.com
+  password_digest: <%= User.digest("password") %>
+  activated: false
+  activated_at: <%= Time.zone.now %>
+
 # <% 1.times do |n| %>
 #   user_<%= n %>:
 #     name: <%= "User Name" %>

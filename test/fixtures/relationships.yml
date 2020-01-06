@@ -1,0 +1,15 @@
+one:
+  follower: michael
+  followed: shafrazi
+
+two:
+  follower: michael
+  followed: umesha
+
+three: 
+  follower: shafrazi
+  followed: michael
+
+four:
+  follower: umesha
+  followed: michael

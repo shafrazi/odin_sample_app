@@ -4,10 +4,16 @@ Rails.application.routes.draw do
   get "/login", to: "sessions#new", as: "login"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
-  resources :users
+  resources :users do
+    member do
+      get :followers, :following
+    end
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :edit, :create, :update]
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
+
   get "/signup", to: "users#new", as: "signup"
   root "static_pages#home"
   get "/home", to: "static_pages#home"

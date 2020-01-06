@@ -15,6 +15,11 @@ third_post:
   created_at: <%= 2.hours.ago %>
   user: umesha
 
+fourth_post:
+  content: "Hello"
+  created_at: <%= 2.hours.ago %>
+  user: archer
+
 most_recent:
   content: "Look!"
   created_at: <%= Time.zone.now %>
